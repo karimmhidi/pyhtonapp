@@ -1,0 +1,27 @@
+# Use the official Python 3.9 image as the base image
+FROM python:3.9
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the entire application directory to the container
+COPY . /app
+
+RUN pip install sentence-transformers
+
+RUN pip install azure-storage-blob
+
+# Install dependencies from requirements.txt
+RUN pip install  -r requirements.txt
+
+
+RUN python -m nltk.downloader stopwords
+
+
+# Install additional packages
+RUN pip install pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
+
+
+
+# Specify the command to run the application
+CMD ["python", "main.py"]
